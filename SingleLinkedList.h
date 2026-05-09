@@ -44,6 +44,36 @@ public:
         size--;
     }
 
+    T& acces_by_index(int index) {
+        if (index < 0 || index >= size) {
+            throw std::out_of_range("Index out of bounds");
+        }
+
+        SingleNode<T>* current = head.get();
+        for (int i = 0; i < index; ++i) {
+            current = current->next.get();
+        }
+        return current->data;
+    }
+
+    void remove_by_index(int index) {
+        if (index < 0 || index >= size) {
+            throw std::out_of_range("Index out of bounds");
+        }
+
+        if (index == 0) {
+            head = std::move(head->next);
+        } else {
+            SingleNode<T>* current = head.get();
+            for (int i = 0; i < index - 1; ++i) {
+                current = current->next.get();
+            }
+
+            current->next = std::move(current->next->next);
+        }
+        size--;
+    }
+
     int get_size() const { return size; }
     
     void print() const {
