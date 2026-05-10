@@ -48,18 +48,16 @@ public:
     void deleteFromBack() {
         if (head == nullptr) {
             throw std::string("List is empty, there is nothing to delete");
-        } else {
-            if (head->next == nullptr) {
-                head = nullptr;
-            } else {
-                SingleNode<T>* current = head.get();
-                while (current->next->next != nullptr) {
-                    current = current->next.get();
-                }
-                current->next = nullptr;
-            }
-            size--;
         }
+
+        std::unique_ptr<SingleNode<T>>* current = &head;
+        
+        while ((*current)->next != nullptr) {
+            current = &((*current)->next);
+        }
+
+        *current = nullptr;
+        size--;
     }
 
     void accessByIndex(int index) {
@@ -76,38 +74,32 @@ public:
 
     void addByIndex(int index, T data) {
         if (index < 0 || index > size) {
-            throw std::string("Incorect index");
-        } else if (index == 0) {
-            addToFront(data);
-        } else if (index == size) {
-            addToBack(data);
-        } else {
-            auto newNode = std::make_unique<SingleNode<T>>(data);
-            SingleNode<T>* current = head.get();
-            for (int i = 0; i < index - 1; i++) {
-                current = current->next.get();
-            }
-            newNode->next = std::move(current->next);
-            current->next = std::move(newNode);
-            size++;
+            throw std::string("Incorrect index");
         }
+        std::unique_ptr<SingleNode<T>>* current = &head;
+        for (int i = 0; i < index; i++) {
+            current = &((*current)->next);
+        }
+        auto newNode = std::make_unique<SingleNode<T>>(data);
+        newNode->next = std::move(*current);
+        *current = std::move(newNode);
+        
+        size++;
     }
 
     void deleteByIndex(int index) {
         if (index < 0 || index >= size) {
-            throw std::string("Incorect index");
-        } else if (index == 0) {
-            deleteFromFront();
-        } else if (index == size - 1) {
-            deleteFromBack();
-        } else {
-            SingleNode<T>* current = head.get();
-            for (int i = 0; i < index - 1; i++) {
-                current = current->next.get();
-            }
-            current->next = std::move(current->next->next);
-            size--;
+            throw std::string("Incorrect index");
         }
+
+        std::unique_ptr<SingleNode<T>>* current = &head;
+        for (int i = 0; i < index; i++) {
+            current = &((*current)->next);
+        }
+
+        *current = std::move((*current)->next);
+        
+        size--;
     }
 
     void printSize() {
