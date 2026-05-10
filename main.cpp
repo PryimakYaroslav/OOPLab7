@@ -2,23 +2,46 @@
 #include "SingleLinkedList.h"
 
 int main() {
+
+    try {
     SingleLinkedList<int> list;
+    std::cout << "======= Sindle Linked List =======\n" << std::endl;
 
-    if (list.is_empty()) {
-        std::cout << "Список порожній, додаємо дані..." << std::endl;
+    list.isEmpty();
+    list.printList();
+    std::cout << "-----Adding elements-----\n" << std::endl;
+    std::cout << "Adding 5, 10, 15 to the front and 20, 25, 30 to the back\n" << std::endl;
+    list.addToFront(5);
+    list.addToFront(10);
+    list.addToFront(15);
+    list.addToBack(20);
+    list.addToBack(25);
+    list.addToBack(30);
+    list.isEmpty();
+    list.printList();
+    list.printSize();
+
+    std::cout << "Adding 17 by index 2\n" << std::endl;
+    list.addByIndex(2, 17);
+    list.printList();
+
+    std::cout << "Finding and access\n" << std::endl;
+    list.find(15);
+    list.find(100);
+    list.accessByIndex(5);
+
+    std::cout << "-----Deleting elements-----\n" << std::endl;
+    std::cout << "Deleting elements from the top and back\n" << std::endl;
+    list.deleteFromBack();
+    list.deleteFromFront();
+    list.printList(); 
+
+    std::cout << "Deleting elements by index\n" << std::endl;
+    list.deleteByIndex(1);
+    list.printList();
+
+    } catch (const std::string& e) {
+        std::cerr << "Error: " << e << std::endl;
     }
-
-    list.push_front(100);
-    list.push_front(200);
-
-    int search_idx = 1;
-    int* found_val = list.find(search_idx);
-
-    if (found_val != nullptr) {
-        std::cout << "Знайдено за індексом " << search_idx << ": " << *found_val << std::endl;
-    } else {
-        std::cout << "Нічого не знайдено за таким індексом!" << std::endl;
-    }
-
     return 0;
 }
