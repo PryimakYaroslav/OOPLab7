@@ -2,21 +2,23 @@
 #include "SingleLinkedList.h"
 
 int main() {
-    SingleLinkedList<int> list(10);
-    list.push_front(20);
-    list.push_front(30);
-    list.push_front(40);
-    list.push_front(50);
-    
-    std::cout << "List contents: ";
-    list.print();
+    SingleLinkedList<int> list;
 
-    list.pop_back();
-    std::cout << "After pop_back: ";
-    list.print();
+    if (list.is_empty()) {
+        std::cout << "Список порожній, додаємо дані..." << std::endl;
+    }
 
-    list.remove_by_index(1);
-    list.print();
+    list.push_front(100);
+    list.push_front(200);
+
+    int search_idx = 1;
+    int* found_val = list.find(search_idx);
+
+    if (found_val != nullptr) {
+        std::cout << "Знайдено за індексом " << search_idx << ": " << *found_val << std::endl;
+    } else {
+        std::cout << "Нічого не знайдено за таким індексом!" << std::endl;
+    }
 
     return 0;
 }

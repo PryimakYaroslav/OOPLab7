@@ -84,4 +84,20 @@ public:
         }
         std::cout << "nullptr" << std::endl;
     }
+
+    bool is_empty() const {
+        return size == 0;
+    }
+
+    T* find(int index) {
+        if (index < 0 || index >= size) {
+            throw std::out_of_range("No element by this index"); 
+        }
+
+        SingleNode<T>* current = head.get();
+        for (int i = 0; i < index; ++i) {
+            current = current->next.get();
+        }
+        return &(current->data);
+    }
 };
