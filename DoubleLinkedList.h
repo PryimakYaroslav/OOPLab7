@@ -96,7 +96,7 @@ class DoubleLinkedList {
     }
 
     void find(T data) {
-        DoubleNode<T>* current = head.get();
+        std::shared_ptr<DoubleNode<T>> current = head;
         int index = 0;
 
         while (current != nullptr) {
@@ -104,69 +104,74 @@ class DoubleLinkedList {
                 std::cout << "Element " << data << " found at index: " << index << std::endl;
                 return;
             }
-            current = current->next.get();
+            current = current->next;
             index++;
         }
         std::cout << "Element " << data << " not found in the list." << std::endl;
     }
 
     void accessByIndex(int index) {
-    if (index < 0 || index >= size) {
-        throw std::string("Incorrect index");
+        if (index < 0 || index >= size) {
+            throw std::string("Incorrect index");
+        }
+        
+        std::shared_ptr<DoubleNode<T>> current = head;
+        for (int i = 0; i < index; i++) {
+            current = current->next;
+        }
+        std::cout << "Element at index " << index << ": " << current->data << std::endl;
     }
-    DoubleNode<T>* current = head.get();
-    for (int i = 0; i < index; i++) {
-        current = current->next.get();
-    }
-    std::cout << "Element at index " << index << ": " << current->data << std::endl;
-}
 
     void addByIndex(int index, T data) {
-    if (index < 0 || index > size) {
-        throw std::string("Incorrect index");
-    } else if (index == 0) {
-        addToFront(data);
-    } else if (index == size) {
-        addToBack(data);
-    } else {
-        auto newNode = std::make_shared<DoubleNode<T>>(data);
-        DoubleNode<T>* current = head.get();
+        if (index < 0 || index > size) {
+            throw std::string("Incorrect index");
+        } else if (index == 0) {
+            addToFront(data);
+        } else if (index == size) {
+            addToBack(data);
+        } else {
+            auto newNode = std::make_shared<DoubleNode<T>>(data);
+            std::shared_ptr<DoubleNode<T>> current = head;
 
-        for (int i = 0; i < index; i++) {
-            current = current->next.get();
+            for (int i = 0; i < index; i++) {
+                current = current->next;
+            }
+
+            auto prevNode = current->previous.lock();
+
+            newNode->next = current;
+            newNode->previous = prevNode;
+            
+            if (prevNode) {
+                prevNode->next = newNode;
+            }
+            current->previous = newNode;
+            
+            size++;
         }
-
-        newNode->next = current->previous.lock()->next;
-        newNode->previous = current->previous;
-        
-        current->previous.lock()->next = newNode;
-        current->previous = newNode;
-        
-        size++;
     }
-}
 
     void deleteByIndex(int index) {
-    if (index < 0 || index >= size) {
-        throw std::string("Incorrect index");
-    } else if (index == 0) {
-        deleteFromFront();
-    } else if (index == size - 1) {
-        deleteFromBack();
-    } else {
-        DoubleNode<T>* target = head.get();
+        if (index < 0 || index >= size) {
+            throw std::string("Incorrect index");
+        } else if (index == 0) {
+            deleteFromFront();
+        } else if (index == size - 1) {
+            deleteFromBack();
+        } else {
+            std::shared_ptr<DoubleNode<T>> target = head;
 
-        for (int i = 0; i < index; i++) {
-            target = target->next.get();
+            for (int i = 0; i < index; i++) {
+                target = target->next;
+            }
+
+            auto prevNode = target->previous.lock();
+            auto nextNode = target->next;
+
+            if (prevNode) prevNode->next = nextNode;
+            if (nextNode) nextNode->previous = prevNode;
+
+            size--;
         }
-
-        auto prevNode = target->previous.lock();
-        auto nextNode = target->next;
-
-        prevNode->next = nextNode;
-        nextNode->previous = prevNode;
-
-        size--;
     }
-}
 };
