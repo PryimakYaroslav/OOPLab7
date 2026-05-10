@@ -47,6 +47,7 @@ int main() {
 
     std::cout << "-----Adding elements-----\n" << std::endl;
     std::cout << "Adding Bear, Fox, Hare to the front and Pike, Carp, Zander to the back\n" << std::endl;
+    list2.isEmpty();
     list2.addToFront("Bear");
     list2.addToFront("Fox");
     list2.addToFront("Hare");
@@ -54,6 +55,7 @@ int main() {
     list2.addToBack("Carp");
     list2.addToBack("Zander");
     list2.printList();
+    list2.printSize();
 
     list2.deleteFromBack();
     list2.deleteFromFront();

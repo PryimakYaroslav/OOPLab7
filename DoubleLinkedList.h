@@ -82,4 +82,16 @@ class DoubleLinkedList {
         }
         size--;
     }
+
+    void printSize() {
+        std::cout << "Size of the list: " << size << std::endl;
+    }
+
+    void isEmpty() {
+        if (size == 0) {
+            std::cout << "The list is empty." << std::endl;
+        } else {
+            std::cout << "The list is not empty." << std::endl;
+        }
+    }
 };
