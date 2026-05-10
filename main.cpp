@@ -1,5 +1,7 @@
 #include <iostream>
+#include <string>
 #include "SingleLinkedList.h"
+#include "DoubleLinkedList.h"
 
 int main() {
 
@@ -39,6 +41,18 @@ int main() {
     std::cout << "Deleting elements by index\n" << std::endl;
     list.deleteByIndex(1);
     list.printList();
+
+    DoubleLinkedList<std::string> list2;
+    std::cout << "======= Double Linked List =======\n" << std::endl;
+
+    std::cout << "-----Adding elements-----\n" << std::endl;
+    std::cout << "Adding Bear, Fox, Hare to the front and Pike, Carp, Zander to the back\n" << std::endl;
+    list2.addToFront("Bear");
+    list2.addToFront("Fox");
+    list2.addToFront("Hare");
+    list2.addToBack("Pike");
+    list2.addToBack("Carp");
+    list2.addToBack("Zander");
 
     } catch (const std::string& e) {
         std::cerr << "Error: " << e << std::endl;
