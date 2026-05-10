@@ -13,11 +13,7 @@ private:
 public:
     SingleLinkedList() : head(nullptr), size(0) {};
     
-    ~SingleLinkedList() {
-        while (head) {
-            head = std::move(head->next);
-        }
-    }
+    ~SingleLinkedList() = default;
 
     void addToFront(T data) {
         auto newNode = std::make_unique<SingleNode<T>>(data);
