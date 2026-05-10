@@ -110,6 +110,17 @@ class DoubleLinkedList {
         std::cout << "Element " << data << " not found in the list." << std::endl;
     }
 
+    void accessByIndex(int index) {
+    if (index < 0 || index >= size) {
+        throw std::string("Incorrect index");
+    }
+    DoubleNode<T>* current = head.get();
+    for (int i = 0; i < index; i++) {
+        current = current->next.get();
+    }
+    std::cout << "Element at index " << index << ": " << current->data << std::endl;
+}
+
     void addByIndex(int index, T data) {
     if (index < 0 || index > size) {
         throw std::string("Incorrect index");

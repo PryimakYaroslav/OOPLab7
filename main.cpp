@@ -7,7 +7,7 @@ int main() {
 
     try {
     SingleLinkedList<int> list;
-    std::cout << "======= Sindle Linked List =======\n" << std::endl;
+    std::cout << "======= SINGLE LINKED LIST =======\n" << std::endl;
 
     list.isEmpty();
     list.printList();
@@ -23,7 +23,7 @@ int main() {
     list.printList();
     list.printSize();
 
-    std::cout << "Adding 17 by index 2\n" << std::endl;
+    std::cout << "-----Adding 17 by index 2-----\n" << std::endl;
     list.addByIndex(2, 17);
     list.printList();
 
@@ -38,33 +38,49 @@ int main() {
     list.deleteFromFront();
     list.printList(); 
 
-    std::cout << "Deleting elements by index\n" << std::endl;
+    std::cout << "-----Deleting elements by index 1-----\n" << std::endl;
     list.deleteByIndex(1);
     list.printList();
 
     DoubleLinkedList<std::string> list2;
-    std::cout << "======= Double Linked List =======\n" << std::endl;
+    std::cout << "======= DOUBLE LINKED LIST =======\n" << std::endl;
+
+    list2.isEmpty();
+    list2.printList();
 
     std::cout << "-----Adding elements-----\n" << std::endl;
     std::cout << "Adding Bear, Fox, Hare to the front and Pike, Carp, Zander to the back\n" << std::endl;
-    list2.isEmpty();
     list2.addToFront("Bear");
     list2.addToFront("Fox");
     list2.addToFront("Hare");
     list2.addToBack("Pike");
     list2.addToBack("Carp");
     list2.addToBack("Zander");
+    list2.isEmpty();
     list2.printList();
     list2.printSize();
 
+    std::cout << "-----Adding Boar by index 2-----\n" << std::endl;
+    list2.addByIndex(2, "Boar");
+    list2.printList();
+
+    std::cout << "-----Finding and access-----\n" << std::endl;
+    list2.find("Pike");
+    list2.find("Moose");
+    list2.accessByIndex(2);
+
+    std::cout << "-----Deleting elements by index 1-----\n" << std::endl;
+    list2.deleteByIndex(1);
+    list2.printList();
+
+    std::cout << "-----Deleting elements-----\n" << std::endl;
+    std::cout << "Deleting elements from the top and back\n" << std::endl;
     list2.deleteFromBack();
     list2.deleteFromFront();
     list2.printList();
-    list2.find("Pike");
-    list2.find("Salmon");
 
     } catch (const std::string& e) {
-        std::cerr << "Error: " << e << std::endl;
+        std::cerr << "Error: " << e;
     }
     return 0;
 }
