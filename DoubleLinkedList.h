@@ -109,4 +109,53 @@ class DoubleLinkedList {
         }
         std::cout << "Element " << data << " not found in the list." << std::endl;
     }
+
+    void addByIndex(int index, T data) {
+    if (index < 0 || index > size) {
+        throw std::string("Incorrect index");
+    } else if (index == 0) {
+        addToFront(data);
+    } else if (index == size) {
+        addToBack(data);
+    } else {
+        auto newNode = std::make_shared<DoubleNode<T>>(data);
+        DoubleNode<T>* current = head.get();
+
+        for (int i = 0; i < index; i++) {
+            current = current->next.get();
+        }
+
+        newNode->next = current->previous.lock()->next;
+        newNode->previous = current->previous;
+        
+        current->previous.lock()->next = newNode;
+        current->previous = newNode;
+        
+        size++;
+    }
+}
+
+    void deleteByIndex(int index) {
+    if (index < 0 || index >= size) {
+        throw std::string("Incorrect index");
+    } else if (index == 0) {
+        deleteFromFront();
+    } else if (index == size - 1) {
+        deleteFromBack();
+    } else {
+        DoubleNode<T>* target = head.get();
+
+        for (int i = 0; i < index; i++) {
+            target = target->next.get();
+        }
+
+        auto prevNode = target->previous.lock();
+        auto nextNode = target->next;
+
+        prevNode->next = nextNode;
+        nextNode->previous = prevNode;
+
+        size--;
+    }
+}
 };
