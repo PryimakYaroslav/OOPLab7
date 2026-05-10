@@ -60,6 +60,8 @@ int main() {
     list2.deleteFromBack();
     list2.deleteFromFront();
     list2.printList();
+    list2.find("Pike");
+    list2.find("Salmon");
 
     } catch (const std::string& e) {
         std::cerr << "Error: " << e << std::endl;
