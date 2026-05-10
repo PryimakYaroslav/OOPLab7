@@ -53,6 +53,7 @@ int main() {
     list2.addToBack("Pike");
     list2.addToBack("Carp");
     list2.addToBack("Zander");
+    list2.printList();
 
     } catch (const std::string& e) {
         std::cerr << "Error: " << e << std::endl;

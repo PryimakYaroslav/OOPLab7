@@ -78,9 +78,9 @@ public:
         if (index < 0 || index > size) {
             throw std::string("Incorect index");
         } else if (index == 0) {
-            addFront(data);
+            addToFront(data);
         } else if (index == size) {
-            addBack(data);
+            addToBack(data);
         } else {
             auto newNode = std::make_unique<SingleNode<T>>(data);
             SingleNode<T>* current = head.get();
@@ -97,9 +97,9 @@ public:
         if (index < 0 || index >= size) {
             throw std::string("Incorect index");
         } else if (index == 0) {
-            deleteFront();
+            deleteFromFront();
         } else if (index == size - 1) {
-            deleteBack();
+            deleteFromBack();
         } else {
             SingleNode<T>* current = head.get();
             for (int i = 0; i < index - 1; i++) {
